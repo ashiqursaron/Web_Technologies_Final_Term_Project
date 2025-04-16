@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <script>
+        
+    function validateForm() {
+        if (!validateName()) return false;
+        if (!validateEmail()) return false;
+        if (!validateDOB()) return false;
+        if (!validateGender()) return false;
+        if (!validateProfilePictureForm()) return false;
+
+        return true; // Submit the form only if all validations pass
+    }
+
+
+    function validateName() {
+    let firstName = document.getElementById("firstName").value.trim();
+    let lastName = document.getElementById("lastName").value.trim();
+    let name = firstName + " " + lastName;
+
+    if (firstName === "" || lastName === "") {
+        alert("First name and Last name cannot be empty!");
+        return false;
+    }
+
+    let words = name.split(" ");
+    if (words.length < 2) {
+        alert("Name must contain at least two words!");
+        return false;
+    }
+
+    for (let i = 0; i < name.length; i++) {
+        let char = name[i];
+        if (
+            !(char >= "a" && char <= "z") &&
+            !(char >= "A" && char <= "Z") &&
+            char !== "." &&
+            char !== "-" &&
+            char !== " "
+        ) {
+            alert("Name can only contain letters, dots (.), or dashes (-)!");
+            return false;
+        }
+    }
+
+    if (!((name[0] >= "a" && name[0] <= "z") || (name[0] >= "A" && name[0] <= "Z"))) {
+        alert("Name must start with a letter!");
+        return false;
+    }
+
+    return true;
+}
+
+
+        function validateEmailAddress(emailAddress) {
+            let atSymbol = emailAddress.indexOf("@");
+            let dotSymbol = emailAddress.lastIndexOf(".");
+            let spaceSymbol = emailAddress.indexOf(" ");
+            let doubleDotSymbol = emailAddress.indexOf("..");
+            let alertBox = document.getElementById("alert");
+
+            if ((atSymbol != -1) &&
+                (atSymbol != 0) &&
+                (dotSymbol != -1) &&
+                (dotSymbol != 0) &&
+                (dotSymbol > atSymbol + 1) &&
+                (emailAddress.length > dotSymbol + 1) &&
+                (spaceSymbol == -1) &&
+                (doubleDotSymbol == -1)) {
+                alertBox.textContent = "Email address is valid.";
+                alertBox.className = "alert success";
+                alertBox.style.display = "block";
+                return true;
+            } else {
+                alertBox.textContent = "Error! Email address is not valid.";
+                alertBox.className = "alert error";
+                alertBox.style.display = "block";
+                return false;
+            }
+        }
+
+        function validateEmail() {
+            let email = document.getElementById("email").value.trim();
+            return validateEmailAddress(email);
+        }
+
+        function validateDOB() {
+            let dob = document.getElementById("dob").value;
+            if (dob === "") {
+                alert("Date of Birth cannot be empty!");
+                return false;
+            }
+            let year = new Date(dob).getFullYear();
+            if (year < 1900 || year > 2025) {
+                alert("Year of birth must be between 1900 and 2025!");
+                return false;
+            }
+            return true;
+        }
+
+        function validateGender() {
+            let gender = document.querySelector("input[name='gender']:checked");
+            if (!gender) {
+                alert("Please select a gender!");
+                return false;
+            }
+            return true;
+        }
+
+        function validateProfilePictureForm() {
+            let picture = document.getElementById("profilePicture").value.trim();
+            if (picture === "") {
+                alert("Please upload a profile picture!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <center>
+    <fieldset>
+        <legend>Registration Form</legend>
+    
+    <form onsubmit="return validateForm()">
+        <label for="firstName">First Name:</label><br>
+        <input type="text" id="firstName" name="firstName"><br><br>
+
+        <label for="lastName">Last Name:</label><br>
+        <input type="text" id="lastName" name="lastName"><br><br>
+
+        <label for="id">ID:</label><br>
+        <input type="text" id="id" name="id"><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+
+        <label for="address">Address:</label><br>
+        <textarea id="address" name="address"></textarea><br><br>
+
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+
+        <label for="dob">Date of Birth:</label><br>
+        <input type="date" id="dob" name="dob"><br><br>
+
+        <label for="profilePicture">Profile Picture:</label><br>
+        <input type="file" id="profilePicture" name="profilePicture"><br><br>
+
+        <label>Gender:</label><br>
+        <input type="radio" id="male" name="gender" value="Male">
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="Female">
+        <label for="female">Female</label><br>
+        <input type="radio" id="other" name="gender" value="Other">
+        <label for="other">Other</label><br><br>
+
+        <label for="profession">Profession:</label><br>
+        <select id="profession" name="profession">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="developer">Developer</option>
+            <option value="other">Other</option>
+        </select><br><br>
+
+        <label for="skills">Skills:</label><br>
+        <input type="checkbox" id="html" name="skills" value="HTML">
+        <label for="html">HTML</label><br>
+        <input type="checkbox" id="css" name="skills" value="CSS">
+        <label for="css">CSS</label><br>
+        <input type="checkbox" id="javascript" name="skills" value="JavaScript">
+        <label for="javascript">JavaScript</label><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+</fieldset>
+</center>
+</body>
+</html>
