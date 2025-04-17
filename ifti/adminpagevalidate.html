@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Admin</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      background: #eef6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .panel {
+      width: 100%;
+      max-width: 350px;
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; margin-bottom: 12px; color: #0077cc; font-size: 20px; }
+    h3 { margin: 8px 0 4px; font-size: 15px; }
+    label { font-size: 13px; margin-top: 4px; display: block; }
+    input, select, button {
+      width: 100%;
+      margin: 4px 0 8px;
+      padding: 6px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .row { display: flex; gap: 8px; }
+    .row button { flex: 1; }
+    .error { color: red; font-size: 12px; margin-top: -6px; }
+  </style>
+</head>
+<body>
+
+  <div class="panel">
+    <h2>Admin Panel</h2>
+
+    <h3>User</h3>
+    <label>Username</label>
+    <input id="username" type="text">
+    <label>Role</label>
+    <select id="role">
+      <option value="">Select</option>
+      <option>Admin</option>
+      <option>Editor</option>
+      <option>Viewer</option>
+    </select>
+    <div class="row">
+      <button onclick="filter()">Filter</button>
+      <button onclick="del()">Delete</button>
+    </div>
+    <div id="e1" class="error"></div>
+
+    <h3>Weather Moderation</h3>
+    <label>Report ID</label>
+    <input id="rid" type="text">
+    <label>Action</label>
+    <select id="action">
+      <option value="">Select</option>
+      <option>Approve</option>
+      <option>Reject</option>
+      <option>Flag</option>
+    </select>
+    <button onclick="moderate()">Submit</button>
+    <div id="e2" class="error"></div>
+
+    <h3>Settings</h3>
+    <label>Maintenance</label>
+    <select id="mode">
+      <option value="">Select</option>
+      <option>On</option>
+      <option>Off</option>
+    </select>
+    <button onclick="save()">Save</button>
+    <div id="e3" class="error"></div>
+  </div>
+
+  <script>
+    const err = (id, msg) => document.getElementById(id).textContent = msg;
+
+    function filter() {
+      const u = username.value.trim(), r = role.value;
+      err("e1", u && r ? "" : "Fill all fields");
+      if (u && r) alert(`Filtered: ${u} (${r})`);
+    }
+
+    function del() {
+      alert("Bulk delete done.");
+    }
+
+    function moderate() {
+      const id = rid.value.trim(), a = action.value;
+      err("e2", id && a ? "" : "Missing report/action");
+      if (id && a) alert(`Report ${id}: ${a}`);
+    }
+
+    function save() {
+      const m = mode.value;
+      err("e3", m ? "" : "Select maintenance option");
+      if (m) alert(`Maintenance: ${m}`);
+    }
+  </script>
+
+</body>
+</html>
