@@ -126,7 +126,8 @@
     <fieldset>
         <legend>Registration Form</legend>
     
-    <form onsubmit="return validateForm()">
+    <form action="validate.php" method="post" >
+        <!-- onsubmit="return validateForm() -->
         <label for="firstName">First Name:</label><br>
         <input type="text" id="firstName" name="firstName"><br><br>
 
@@ -178,7 +179,7 @@
         <input type="checkbox" id="javascript" name="skills" value="JavaScript">
         <label for="javascript">JavaScript</label><br><br>
 
-        <button type="submit">Register</button>
+        <button type="submit" name="submit">Register</button>
     </form>
 </fieldset>
 </center>
