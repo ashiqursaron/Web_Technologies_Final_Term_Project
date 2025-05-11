@@ -1,0 +1,102 @@
+<!-- <!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://maps-sdk.trimblemaps.com/v4/trimblemaps-4.2.2.css" />
+        <script src="https://maps-sdk.trimblemaps.com/v4/trimblemaps-4.2.2.js"></script>
+        <style>
+            body { margin: 0; padding: 0; }
+
+            #map {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="map">
+
+        <script>
+            TrimbleMaps.setAPIKey('YOUR_API_KEY_HERE');
+            const map = new TrimbleMaps.Map({
+                container: 'map', // container id
+                style: TrimbleMaps.Common.Style.TRANSPORTATION, // hosted style id
+                center: [-98.38, 38.69], // starting position
+                zoom: 3 // starting zoom
+            });
+            const ctrlClick = new TrimbleMaps.WeatherAlertClickControl();
+            map.addControl(ctrlClick);
+
+            const ctrlFilter = new TrimbleMaps.WeatherAlertFilterControl();
+            map.addControl(ctrlFilter, 'top-left');
+            map.on('load', function() {
+                map.setWeatherAlertVisibility(true);
+            });
+        </script>
+        </div>
+    </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <style>
+    #map { height: 90vh; }
+    #controls { padding: 10px; }
+    button { margin: 5px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="controls">
+    <button onclick="toggleLayer('rain')">Rain</button>
+    <button onclick="toggleLayer('snow')">Snow</button>
+    <button onclick="toggleLayer('satellite')">Satellite</button>
+    <button onclick="playRadar()">Play Radar</button>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([23.8103, 90.4125], 6); // Dhaka
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    const radarLayers = {
+      rain: L.tileLayer('https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=YOUR_API_KEY'),
+      snow: L.tileLayer('https://tile.openweathermap.org/map/snow_new/{z}/{x}/{y}.png?appid=YOUR_API_KEY'),
+      satellite: L.tileLayer('https://tile.openweathermap.org/map/satellite_new/{z}/{x}/{y}.png?appid=YOUR_API_KEY')
+    };
+
+    let currentLayer = null;
+    function toggleLayer(type) {
+      if (currentLayer) map.removeLayer(currentLayer);
+      currentLayer = radarLayers[type];
+      currentLayer.addTo(map);
+    }
+
+    function playRadar() {
+      // Simulate radar animation (in reality, use RainViewer API frames)
+      let frames = ['01', '02', '03', '04', '05']; // fake frame IDs
+      let i = 0;
+      let interval = setInterval(() => {
+        if (currentLayer) map.removeLayer(currentLayer);
+        currentLayer = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/${frames[i]}/{z}/{x}/{y}.png?appid=YOUR_API_KEY`);
+        currentLayer.addTo(map);
+        i++;
+        if (i >= frames.length) clearInterval(interval);
+      }, 500);
+    }
+
+    map.on('click', function (e) {
+      alert(`Lat: ${e.latlng.lat}, Lng: ${e.latlng.lng}`);
+      // You can fetch weather data for that lat/lng from API
+    });
+  </script>
+</body>
+</html>

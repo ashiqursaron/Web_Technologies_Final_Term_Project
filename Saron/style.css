@@ -345,8 +345,8 @@ main table tbody tr:last-child td{
 
 /* ******************************* Right Styling ********************************** */
 .right{
-    margin-top: 1.4rem;
-    margin-left: auto; /* Pushes the .right div to the right */
+    /*margin-top: 1.4rem;
+    /*margin-left: auto; /* Pushes the .right div to the right */
     /* display: flex; /* Optional: Use flexbox for internal alignment */
     /* flex-direction: column; /* Stack child elements vertically */
     /* gap: 1rem; /* Add spacing between child elements */
