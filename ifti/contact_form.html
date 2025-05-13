@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+  <style>
+    body { font-family: Arial; background: #eef6fa; display: flex; justify-content: center; padding: 40px; }
+    form { background: #fff; padding: 20px; border-radius: 10px; width: 100%; max-width: 400px; box-shadow: 0 0 10px #ccc; }
+    input, textarea, button { width: 100%; margin: 10px 0; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+    label { margin-top: 10px; display: block; }
+    .error { color: red; font-size: 13px; }
+    h2 { color: blue; } /* Title color changed to blue */
+  </style>
+</head>
+<body>
+
+<form onsubmit="return validateForm()">
+  <h2>Contact Us</h2>
+  <label>Name</label>
+  <input type="text" id="name">
+  <label>Email</label>
+  <input type="email" id="email">
+  <label>Message</label>
+  <textarea id="message" rows="4"></textarea>
+  <label>CAPTCHA: What is 3 + 4?</label>
+  <input type="text" id="captcha">
+  <div class="error" id="formError"></div>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  function validateForm() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const msg = document.getElementById("message").value.trim();
+    const cap = document.getElementById("captcha").value.trim();
+    const error = document.getElementById("formError");
+
+    if (!name || !email || !msg || !cap) {
+      error.textContent = "Please fill all fields.";
+      return false;
+    }
+
+    if (cap !== "7") {
+      error.textContent = "CAPTCHA is incorrect.";
+      return false;
+    }
+
+    error.textContent = "";
+    alert("Message submitted! A confirmation email has been sent.");
+    return true;
+  }
+</script>
+
+</body>
+</html>

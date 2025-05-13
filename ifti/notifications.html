@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notifications</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial; background: #eef6fa; padding: 20px; }
+    .header { display: flex; justify-content: space-between; align-items: center; }
+    .bell { position: relative; cursor: pointer; font-size: 24px; }
+    .count { background: red; color: #fff; border-radius: 50%; font-size: 12px; padding: 2px 6px; position: absolute; top: -8px; right: -8px; }
+    .panel { margin-top: 20px; background: #fff; padding: 16px; border-radius: 10px; box-shadow: 0 0 10px #ccc; max-width: 500px; }
+    .notif { border-bottom: 1px solid #ddd; padding: 10px 0; }
+    .settings { margin-top: 16px; }
+    label { display: block; margin: 8px 0 4px; }
+    .error { color: red; font-size: 13px; }
+    h2 { color:  blue; } 
+  </style>
+</head>
+<body>
+
+
+
+
+    <nav style="background: #222; padding: 10px; text-align: center;">
+        <a href="landing_page.html" style="color: #fff; margin: 0 15px; text-decoration: none;">Home</a>
+        <a href="form_validation.html" style="color: #fff; margin: 0 15px; text-decoration: none;">Login</a>
+        <a href="adminpanel.html" style="color: #fff; margin: 0 15px; text-decoration: none;">Admin Panel</a>
+        <a href="contact_form.html" style="color: #fff; margin: 0 15px; text-decoration: none;">Contact</a>
+        <a href="notifications.html" style="color: #fff; margin: 0 15px; text-decoration: none;">Notifications</a>
+      </nav>
+      
+
+
+
+
+
+  <div class="header">
+    <h2>Weather Alerts</h2>
+    <div class="bell" onclick="togglePanel()">🔔<span class="count" id="ncount">3</span></div>
+  </div>
+
+  <div class="panel" id="panel" style="display:none;">
+    <div class="notif"><strong>⚠ Heatwave Warning</strong><br>Stay hydrated. (High: 40°C)</div>
+    <div class="notif"><strong>🌧 Rain Alert</strong><br>Chance of heavy showers at 6PM.</div>
+    <div class="notif"><strong>🌫 Air Quality</strong><br>AQI is unhealthy in Dhaka today.</div>
+
+    <div class="settings">
+      <h4>Notification Settings</h4>
+      <label><input type="checkbox" id="email" checked> Email Alerts</label>
+      <label><input type="checkbox" id="push"> Push Alerts</label>
+      <button onclick="validateNotif()">Save Preferences</button>
+      <div class="error" id="nerror"></div>
+    </div>
+  </div>
+
+  <script>
+    function togglePanel() {
+      const panel = document.getElementById("panel");
+      panel.style.display = panel.style.display === "none" ? "block" : "none";
+      document.getElementById("ncount").style.display = "none";
+    }
+
+    function validateNotif() {
+      const email = document.getElementById("email").checked;
+      const push = document.getElementById("push").checked;
+      const err = document.getElementById("nerror");
+      if (!email && !push) {
+        err.textContent = "Select at least one notification type.";
+      } else {
+        err.textContent = "";
+        alert("Preferences saved.");
+      }
+    }
+  </script>
+
+</body>
+</html>

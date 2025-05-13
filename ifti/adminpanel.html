@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel</title>
+  
+  <style>
+    body { font-family: Arial; background: #eef6fa; display: flex; justify-content: center; padding: 40px; }
+    .panel { background: #fff; padding: 20px; border-radius: 10px; width: 100%; max-width: 400px; box-shadow: 0 0 10px #ccc; }
+    input, select, button { width: 100%; margin: 10px 0; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+    label { display: block; margin-top: 10px; }
+    .row { display: flex; gap: 10px; }
+    .row button { flex: 1; }
+    .error { color: red; font-size: 13px; }
+    h2 { color:  blue; } 
+  </style>
+</head>
+<body>
+
+
+
+
+ 
+      
+
+
+
+
+
+
+
+<div class="panel">
+  <h2>Admin Panel</h2>
+
+  <label>Username</label>
+  <input id="username" type="text">
+  <label>Role</label>
+  <select id="role">
+    <option value="">Select</option>
+    <option>Admin</option>
+    <option>Editor</option>
+  </select>
+  <div class="row">
+    <button onclick="filter()">Filter</button>
+    <button onclick="del()">Delete</button>
+  </div>
+  <div class="error" id="e1"></div>
+
+  <label>Report ID</label>
+  <input id="rid" type="text">
+  <label>Action</label>
+  <select id="action">
+    <option value="">Select</option>
+    <option>Approve</option>
+    <option>Reject</option>
+  </select>
+  <button onclick="moderate()">Submit</button>
+  <div class="error" id="e2"></div>
+
+  <label>Maintenance</label>
+  <select id="mode">
+    <option value="">Select</option>
+    <option>On</option>
+    <option>Off</option>
+  </select>
+  <button onclick="save()">Save</button>
+  <div class="error" id="e3"></div>
+</div>
+
+<script>
+  const err = (id, msg) => document.getElementById(id).textContent = msg;
+
+  function filter() {
+    const u = username.value.trim(), r = role.value;
+    err("e1", u && r ? "" : "Fill all fields");
+    if (u && r) alert(`Filtered: ${u} (${r})`);
+  }
+
+  function del() { alert("Bulk delete done."); }
+
+  function moderate() {
+    const id = rid.value.trim(), a = action.value;
+    err("e2", id && a ? "" : "Missing report/action");
+    if (id && a) alert(`Report ${id}: ${a}`);
+  }
+
+  function save() {
+    const m = mode.value;
+    err("e3", m ? "" : "Select maintenance option");
+    if (m) alert(`Maintenance: ${m}`);
+  }
+</script>
+
+</body>
+</html>
